@@ -50,8 +50,7 @@ global:
 
 # Instances are identified using the instance name listed in the AMP web ui.
 instances:
-  # Leave the instance's config as {} for it to inherit the global config.
-  Lobby:
+  Lobby: # <- Doesn't have to be the same as the instance name, but it's recommended for sanity's sake.
     name: Lobby01
   # Any entry listed here will override the global config, and any unspecified entries will be pulled from the global config.
   CoolSMP:
