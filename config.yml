@@ -1,34 +1,3 @@
-# WatchFerret
-
-Credit to sneakysnek#8707 for thinking of the name
-
-## Getting Started
-
-Downloading files:
-
-`wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/p0t4t0sandwich/WatchFerret/main/watchferret/WatchFerret.py`
-
-`wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/p0t4t0sandwich/WatchFerret/main/watchferret/config.yml`
-
-Installing dependencies:
-
-`python -m pip install ampapi requests aiohttp pyyaml`
-
-Running the program:
-
-`python WatchFerret.py`
-
-## How to find `Instance Name`
-
-You can find the instance's name by running `ampinstmgr status` in your CLI/SSH window, or on the right hand side of the AMP web ui when selecting an instance.
-
-## How to find `Instance ID`
-
-You can find the instance's ID by right clicking on the instance in the AMP web ui, and selecting `Manage in New Tab`. The ID will be in the URL after `?instance=`.
-
-## Example Config
-
-```yaml
 ---
 # Global default config for instance management.
 global:
@@ -58,4 +27,3 @@ instances:
     name: CoolSMP01
     id: 9jhb9t6
     start_threshold: 3
-```
