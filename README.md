@@ -1,5 +1,9 @@
 # WatchFerret
 
+Looks like I'm combining WF's functionality into this: https://github.com/p0t4t0sandwich/AMPServerManagerPlugin
+
+Yay another rewrite? -- far fewer dependancy problems though
+
 Credit to sneakysnek#8707 for thinking of the name
 
 ## Getting Started
