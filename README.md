@@ -1,5 +1,7 @@
 # WatchFerret
 
+## Please Note: AMP has fixed the server-stall issue, WatchFerret will now be archived
+
 Looks like I'm combining WF's functionality into this: https://github.com/p0t4t0sandwich/AMPServerManagerPlugin
 
 Yay another rewrite? -- far fewer dependancy problems though
