@@ -6,7 +6,8 @@ from time import sleep
 import yaml
 import os
 
-from ampapi.ampapi import AMPAPIHandler
+from ampapi.modules.ADS import ADS
+from ampapi.modules.CommonAPI import CommonAPI
 
 
 class WatchFerret():
@@ -67,7 +68,7 @@ class WatchFerret():
 
     # Instance Type
     class Instance:
-        def __init__(self, name: str = None, id: str = None, API: AMPAPIHandler = None):
+        def __init__(self, name: str = None, id: str = None, API: CommonAPI = None):
             self.name = name
             self.id = id
             self.API = API
@@ -78,17 +79,17 @@ class WatchFerret():
             # Get Instance ID
             if (instance.id == None):
                 # Loop through the targets
-                for target in (self.ADS.ADSModule.GetInstances())["result"]:
+                for target in self.ADS.ADSModule.GetInstances():
 
                     # Loop through the target instances
-                    for inst in target["AvailableInstances"]:
-                        instanceModule: str = inst["Module"]
+                    for inst in target.AvailableInstances:
+                        instanceModule: str = inst.Module
 
                         # Check if the instance is a Minecraft instance and grab the instance id
                         if instanceModule == "Minecraft":
-                            instanceName: str = inst["InstanceName"]
+                            instanceName: str = inst.InstanceName
                             if instanceName == instance.name:
-                                id: str = inst["InstanceID"]
+                                id: str = inst.InstanceID
 
                                 # Save id back to config file
                                 try:
@@ -111,14 +112,11 @@ class WatchFerret():
                         if instance.id != None:
                             break
 
-            instance.API = self.ADS.InstanceLogin(instance_id=instance.id)
+            instance.API = self.ADS.InstanceLogin(instance.id, "Minecraft")
 
             if instance.API != None:
-                instance.API.initHandler()
-                status: dict = instance.API.Login()
-                if "success" in status.keys() and status["success"] == True:
-                    self.instance_dict[instance.name] = instance
-                    return True
+                self.instance_dict[instance.name] = instance
+                return True
 
         return False
 
@@ -133,7 +131,7 @@ class WatchFerret():
             instance_conf = self.get_config(serverName)
             try:
                 # Get Server State
-                status = self.instance_dict[serverName].API.Core.GetStatus()["State"]
+                status = self.instance_dict[serverName].API.Core.GetStatus().State
                 restart_threshold = instance_conf["restart_threshold"]
                 start_threshold = instance_conf["start_threshold"]
                 stop_threshold = instance_conf["stop_threshold"]
@@ -197,8 +195,8 @@ class WatchFerret():
 
     # Start
     def start(self) -> None:
-        self.ADS = AMPAPIHandler(self.host, self.username, self.password)
-        self.ADS.initHandler()
+        self.ADS = ADS(self.host, self.username, self.password)
+        self.ADS.Login()
 
         # Get instances from config file
         with open(self.config_path, 'r') as f:
